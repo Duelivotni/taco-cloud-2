@@ -3,6 +3,9 @@ package tacos.web;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.google.inject.internal.Errors;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +49,17 @@ public class DesignTacoController {
     public String showDesignForm(Model model) {
         model.addAttribute("design", new Taco());
         return "design";
+    }
+
+    @PostMapping
+    public String processTaco(@ModelAttribute("design") Taco design, Errors errors, Model model) {
+      if (errors.hasErrors()) {
+        return "design";
+      }
+
+      log.info("Processing design: " + design);
+  
+      return "redirect:/orders/current";
     }
 
     private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {

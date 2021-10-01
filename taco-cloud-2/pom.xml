@@ -65,7 +65,13 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+	
+   		<dependency>
+    		<groupId>com.google.inject</groupId>
+     		<artifactId>guice</artifactId>
+     		<version>4.2.2</version>
+   		</dependency>
+ 	</dependencies>
 
 	<build>
 		<plugins>
