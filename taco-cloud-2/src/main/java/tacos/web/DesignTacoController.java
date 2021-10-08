@@ -3,9 +3,8 @@ package tacos.web;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import javax.validation.Valid;
 import com.google.inject.internal.Errors;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +51,7 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processTaco(@ModelAttribute("design") Taco design, Errors errors, Model model) {
+    public String processTaco(@Valid @ModelAttribute("design") Taco design, Errors errors, Model model) {
       if (errors.hasErrors()) {
         return "design";
       }

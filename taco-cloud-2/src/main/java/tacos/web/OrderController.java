@@ -1,5 +1,7 @@
 package tacos.web;
 
+import javax.validation.Valid;
+import com.google.inject.internal.Errors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,12 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(TacoOrder order) {
+    public String processOrder(@Valid TacoOrder order, Errors errors) {
+        
+        if (errors.hasErrors()) {
+            return "orderForm";
+        }
+        
         log.info("Order submitted: " + order);
         return "redirect:/";
     }
