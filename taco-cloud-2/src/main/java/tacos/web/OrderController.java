@@ -23,13 +23,13 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid TacoOrder order, Errors errors) {
+    public String processOrder(@Valid TacoOrder tacoOrder, Errors errors) {
         
         if (errors.hasErrors()) {
             return "orderForm";
         }
         
-        log.info("Order submitted: " + order);
+        log.info("Order submitted: " + tacoOrder);
         return "redirect:/";
     }
 }

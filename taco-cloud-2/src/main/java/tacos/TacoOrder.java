@@ -29,7 +29,7 @@ public class TacoOrder {
     @NotBlank
     private String deliveryZip;
 
-    @CreditCardNumber(message = "The card number is incorrect")
+    @Digits(integer = 16, fraction = 0)
     private String ccNumber;
 
     @Pattern(regexp="^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$", message="Must be formatted MM/YY")
