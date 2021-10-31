@@ -8,9 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
 import javax.swing.plaf.ListUI;
-
 import com.google.common.util.concurrent.ServiceManager.Listener;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +35,13 @@ public class JdbcIngredientRepository implements IngredientRepository {
         List<Ingredient> result = jdbcTemplate.query(
             "select id, name, type from Ingredient where id=?", this :: mapRowToIngredient, id);
         return result.size() == 0 ? Optional.empty() : Optional.of(result.get(0));    
+    }
+
+    @Override
+    public Ingredient save(Ingredient ingredient) {
+        jdbcTemplate.update("insert into Ingredient(id, name, type) values (?, ?, ?)",
+        ingredient.getId(), ingredient.getName(), ingredient.getType().toString());
+        return ingredient;
     }
 
     private Ingredient mapRowToIngredient(ResultSet row, int rowNum) throws SQLException {
